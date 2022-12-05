@@ -1,27 +1,6 @@
 
-const EMPLOYEE_API =  "../../api/employee.php";
-const DEPARTMENT_API = "../../api/department.php";
-
-getDepartments()
-
-function getDepartments()
-{
-    $.ajax({
-        "url" : DEPARTMENT_API + "?getDepartments",
-        "success" : function(response) {
-            
-            let jsonParse = JSON.parse(response)
-            let options = '';
-
-            for (var i = 0; i<jsonParse.records.length; i++) 
-            {
-                options += "<option value='" +jsonParse.records[i].id+ "'>" + jsonParse.records[i].name + "</option>"
-            }
-
-            $("#department").html(options)
-        }
-    })
-}
+//@TODO Change api variable
+const USERS_API =  "../../api/users.php";
 
 /** Actual Functions */
 
@@ -38,7 +17,7 @@ index();
 function index()
 {
     $.ajax({
-        "url" : EMPLOYEE_API + "?index",
+        "url" : USERS_API + "?index",
         "success" : function(response) {
             
             let jsonParse = JSON.parse(response)
@@ -46,14 +25,12 @@ function index()
 
             for (var i = 0; i<jsonParse.records.length; i++) 
             {
+                //@TODO Change display iterations
                 //jsonParse.records[i].id
                 tr += "<tr>" +
                     "<td>" + jsonParse.records[i].id + "</td>" + 
-                    "<td>" + jsonParse.records[i].first_name + "</td>" + 
-                    "<td>" + jsonParse.records[i].middle_name + "</td>" + 
-                    "<td>" + jsonParse.records[i].last_name + "</td>" + 
-                    "<td>" + jsonParse.records[i].department_id + "</td>" + 
-                    "<td>" + jsonParse.records[i].salary + "</td>" + 
+                    "<td>" + jsonParse.records[i].username + "</td>" + 
+                    "<td>" + jsonParse.records[i].date_time + "</td>" + 
                     "<td><button onclick='update(" +jsonParse.records[i].id+ ")'>SAVE EDIT</button><button onclick='show(" +jsonParse.records[i].id+ ")'>SHOW</button>&nbsp;"+
                     "<button onclick='destroy(" +jsonParse.records[i].id+ ")'>DELETE</button></td>" + 
                 "</tr>";
@@ -74,7 +51,7 @@ function index()
 function show(id)
 {
     $.ajax({
-        "url" : EMPLOYEE_API + "?show&id=" + id,
+        "url" : USERS_API + "?show&id=" + id,
         "success" : function(response) {
             
             let jsonParse = JSON.parse(response)
@@ -82,20 +59,19 @@ function show(id)
 
             for (var i = 0; i<jsonParse.records.length; i++) 
             {
+                //@TODO same with index
                 /**
                  * Change display depending on your needs
                  */
                 //jsonParse.records[i].id
-                tr += "<tr>" +
-                    "<td>" + jsonParse.records[i].id + "</td>" + 
-                    "<td>" + jsonParse.records[i].first_name + "</td>" + 
-                    "<td>" + jsonParse.records[i].middle_name + "</td>" + 
-                    "<td>" + jsonParse.records[i].last_name + "</td>" + 
-                    "<td>" + jsonParse.records[i].department_id + "</td>" + 
-                    "<td>" + jsonParse.records[i].salary + "</td>" + 
-                    "<td><button onclick='show(" +jsonParse.records[i].id+ ")'>SHOW</button>&nbsp;"+
-                    "<button onclick='destroy(" +jsonParse.records[i].id+ ")'>DELETE</button></td>" + 
-                "</tr>";
+               //jsonParse.records[i].id
+               tr += "<tr>" +
+               "<td>" + jsonParse.records[i].id + "</td>" + 
+               "<td>" + jsonParse.records[i].username + "</td>" + 
+               "<td>" + jsonParse.records[i].date_time + "</td>" + 
+               "<td><button onclick='update(" +jsonParse.records[i].id+ ")'>SAVE EDIT</button><button onclick='show(" +jsonParse.records[i].id+ ")'>SHOW</button>&nbsp;"+
+               "<button onclick='destroy(" +jsonParse.records[i].id+ ")'>DELETE</button></td>" + 
+           "</tr>";
             }
 
             /**
@@ -113,16 +89,15 @@ function store()
     /**
      * Change json collections
      */
+    //@TODO change json collection
     let employeeForm = {
-		first_name : $("#first_name").val(),
-        middle_name : $("#middle_name").val(),
-        last_name : $("#last_name").val(),
-        department : $("#department").val(),
-        salary : $("#salary").val()
+		username : $("#username").val(),
+        password : $("#password").val(),
+        confirm_password : $("#confirm_password").val(),
 	}
 
     $.ajax({
-        "url" : EMPLOYEE_API ,
+        "url" : USERS_API ,
         "type" : "POST",
         "data" : "store=" + JSON.stringify(employeeForm),
         "success" : function(response) {
@@ -131,7 +106,7 @@ function store()
 
             alert(responseJSON.description);
 
-            getEmployees();
+            index();
             
             return false;
         }
@@ -149,7 +124,7 @@ function destroy(id)
     }
 
     $.ajax({
-        "url" : EMPLOYEE_API ,
+        "url" : USERS_API ,
         "type" : "POST",
         "data" : "destroy&id=" + id,
         "success" : function(response) {
@@ -167,15 +142,15 @@ function destroy(id)
 
 function update(id)
 {
+    //@TODO Change json collections
     let employeeFormUpdate = {
-        id : id,
-		first_name : $("#first_name").val(),
-        department : $("#department").val(),
-        salary : $("#salary").val()
+        username : $("#username").val(),
+        password : $("#password").val(),
+        confirm_password : $("#confirm_password").val(),
 	}
 
     $.ajax({
-        "url" : EMPLOYEE_API ,
+        "url" : USERS_API ,
         "type" : "POST",
         "data" : "update=" + JSON.stringify(employeeFormUpdate) + "&id=" + id,
         "success" : function(response) {
@@ -192,4 +167,3 @@ function update(id)
 }
 
 /** End Actual Functions */
-

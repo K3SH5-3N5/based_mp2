@@ -1,71 +1,14 @@
 <?php
 include_once ("config.php");
 include_once ("constants.php");
-//This is for delete
-if (isset($_POST['deleteEmployee']))
-{
-    $data = json_decode($_POST['deleteEmployee']);
-
-    $sqlCommand = "
-    DELETE FROM employees
-    WHERE id = {$data->id}
-    ";
-
-    $isInserted = $connection->query($sqlCommand);
-
-    $response = array();
-
-    if ($isInserted)
-    {
-        $response["code"] = SUCCESS;
-        $response["description"] = "Successfully Delete Employee";
-    } else 
-    {
-        $response["code"] = SERVER_ERROR; 
-        $response["description"] = "Error while deleting employee";
-    }
-
-    echo json_encode($response);
-}
-
-
-//This is for update
-if (isset($_POST['updateEmployee']))
-{
-    $data = json_decode($_POST['updateEmployee']);
-
-    $sqlCommand = "
-    UPDATE `employees`
-    SET `first_name`='{$data->first_name}',
-    `department_id`='{$data->department}',
-    `salary`='{$data->salary}'
-    WHERE id = {$data->id}
-    ";
-
-    $isInserted = $connection->query($sqlCommand);
-
-    $response = array();
-
-    if ($isInserted)
-    {
-        $response["code"] = SUCCESS;
-        $response["description"] = "Successfully Updated Employee";
-    } else 
-    {
-        $response["code"] = SERVER_ERROR; 
-        $response["description"] = "Error while updating employee";
-    }
-
-    echo json_encode($response);
-
-}
 
 
 /**
- * This condition is for selecting all employee
+ * Actual restful functions
  */
 
- if (isset($_GET['getEmployees']))
+ //GET All information
+ if (isset($_GET['index']))
  {
     $sqlCommand = "SELECT * FROM `employees`;";
 
@@ -86,13 +29,35 @@ if (isset($_POST['updateEmployee']))
     echo json_encode($response);
  }
 
-/**
- * This condition is for inserting employee
- */
-if (isset($_POST['saveEmployee']))
-{
-    $data = json_decode($_POST['saveEmployee']);
+ //Get only 1 information
+ if (isset($_GET['show']))
+ {
+    $id = $_GET['id'];
     
+    $sqlCommand = "SELECT * FROM `employees` where ID = $id;";
+
+    $results = $connection->query($sqlCommand);
+
+    $response = array();
+
+    $records = array();
+
+    while ($row = $results->fetch_assoc()) {
+        array_push($records, $row);
+    }
+
+    $response["code"] = SUCCESS;
+    $response["total_rows"] = $results->num_rows;
+    $response["records"] = $records;
+    
+    echo json_encode($response);
+ }
+
+ //Saving records
+if (isset($_POST['store']))
+{
+    $data = json_decode($_POST['store']);
+
     $sqlCommand = "
     INSERT INTO `employees`
         (
@@ -127,3 +92,69 @@ if (isset($_POST['saveEmployee']))
 
     echo json_encode($response);
 }
+
+//For deleting
+if (isset($_POST['destroy']))
+{
+    $id = $_POST['id'];
+
+    $sqlCommand = "
+    DELETE FROM employees
+    WHERE id = $id
+    ";
+
+    $isInserted = $connection->query($sqlCommand);
+
+    $response = array();
+
+    if ($isInserted)
+    {
+        $response["code"] = SUCCESS;
+        $response["description"] = "Successfully Delete Employee";
+    } else 
+    {
+        $response["code"] = SERVER_ERROR; 
+        $response["description"] = "Error while deleting employee";
+    }
+
+    echo json_encode($response);
+
+}
+
+if (isset($_POST['update']))
+{
+    $id = $_POST['id'];
+    $data = json_decode($_POST['update']);
+
+    $sqlCommand = "
+    UPDATE `employees`
+    SET `first_name`='{$data->first_name}',
+    `department_id`='{$data->department}',
+    `salary`='{$data->salary}'
+    WHERE id = {$data->id}
+    ";
+
+    $isInserted = $connection->query($sqlCommand);
+
+    $response = array();
+
+    if ($isInserted)
+    {
+        $response["code"] = SUCCESS;
+        $response["description"] = "Successfully Updated Employee";
+    } else 
+    {
+        $response["code"] = SERVER_ERROR; 
+        $response["description"] = "Error while updating employee";
+    }
+
+    echo json_encode($response);
+}
+ /**
+  * End actual
+  */
+
+
+
+
+

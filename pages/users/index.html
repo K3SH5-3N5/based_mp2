@@ -38,19 +38,33 @@
     <!-- End of Navigation section-->
 
 
-    <h1>I am a user page</h1>
     <div>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Company Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-            </div>
-        </div>
-    </div>
+      <div class="card" style="margin-top: 2%">
+          <div class="card-body">
+              <h5 class="card-title">List of Employees</h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                <form onsubmit="return store()">
+                  Username: <input type="text" id="username" required/> <br />
+                  Password : <input type="password" id="password" required/> <br />
+                  Confirm Password : <input type="password" id="confirm_password" required/> <br />
+                
+                  <input type="submit" value="SAVE"/>
+                </form>
+              </h6>
+              
+              <table style="width:100%" border="1">
+                  <tr>
+                      <th>ID</th>
+                      <th>Username</th>
+                      <th>Timestamp</th>
+                      <th>Action</th>
+                  </tr>
+                  <tbody id="records"></tbody>
+            
+              </table>
+          </div>
+      </div>
+  </div>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -64,4 +78,5 @@
     integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
     crossorigin="anonymous"></script>
 <script src="../../js/logout.js"></script>
+<script src="script.js"></script>
 </html>
