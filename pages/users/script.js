@@ -1,5 +1,5 @@
 
-//@TODO Change api variable
+//@TODO Change api variable api path
 const USERS_API =  "../../api/users.php";
 
 /** Actual Functions */
