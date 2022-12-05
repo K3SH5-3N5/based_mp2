@@ -1,22 +1,19 @@
 const DASHBOARD_API = "../../api/dashboard.php";
 
-getLoggedDetails()
+getAuthenticatedUser()
 
-function getLoggedDetails() {
+function getAuthenticatedUser() {
     $.ajax({
-        "url" : DASHBOARD_API + "?getLoggedInUser",
+        "url" : DASHBOARD_API + "?getAuthUser",
         "success" : function(response) {
-            let responseJSON = JSON.parse(response)
+            let responseJSON = JSON.parse(response);
 
-            /**
-             * Successful na nakita
-             */
             if (responseJSON.code == 200) {
-                $("#firstName").text(responseJSON.loggedin_user.firstname);
+                $("#firstName").text(responseJSON.details.firstname)
             } else {
-                alert(responseJSON.description)
-                window.location.href = "../index.html"
+                window.location.href = "../../"
             }
         }
     })
 }
+

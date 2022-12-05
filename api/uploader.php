@@ -1,10 +1,14 @@
 <?php
 
-
 foreach ($_FILES as $key) {
-    $name = time().$key['name'];
-    $path = 'upload/'.$name;
-    @move_uploaded_file($key['tmp_name'], $path);
-}
+    $name = $key["name"];
+    $path = "uploads/$name";
 
-echo "Uploaded";
+    if ($key["size"] > 1000000) {
+        echo "max file size reached";
+    }
+
+    @move_uploaded_file($key["tmp_name"], $path);
+}
+//@TODO Update profile picture nung naglogin
+echo "Uploaded " . $_POST["data"];

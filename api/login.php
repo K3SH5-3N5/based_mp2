@@ -1,24 +1,30 @@
 <?php
-include "users.php";
 
+include_once("users.php");
+include_once("constants.php");
+
+/**
+ * Check if may auth sa login.js login url na ajax
+ */
 if (isset($_GET['auth'])) {
-    $loginCredentials = json_decode($_GET['auth']);
+    $loginCredentials = json_decode($_GET["auth"]);
 
     $response = array(
-        "code" => 422, //Status code unprocessible content
-        "description" => "Wrong username and password"
+        "code" => INPUT_ERROR, // Default 200 422 500
+        "description" => "Wrong username password"
     );
-
-    foreach($users as $user) {
-        if ($user['username'] === $loginCredentials->username) {
+    
+    foreach ($users as $user) {
+        if ($user["username"] === $loginCredentials->username) {
             if ($user["password"] === $loginCredentials->password) {
-                $response["code"] = 200;
+                $response["code"] = SUCCESS;
                 $response["description"] = "Successfully Login";
 
-                $_SESSION["logged-user"] = $loginCredentials->username;
+                $_SESSION["loggedin-user"] = $loginCredentials->username;
             }
         }
     }
-    
+
     echo json_encode($response);
 }
+?>

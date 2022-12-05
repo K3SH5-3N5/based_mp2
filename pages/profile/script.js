@@ -1,19 +1,35 @@
-const UPLOADER_API = "../../api/uploader.php";
-const PROFILE_API = "../../api/profile.php";
+const IMAGE_UPLOADER_API = "../../api/uploader.php";
 
-function save(){
-    let data = new FormData();
-    data.append( 'image_file', $( '#image_file' )[0].files[0] );
-    $.ajax({
-        url: PROFILE_API,
-        data: data,
-        processData: false,
-        type: 'POST',
-        enctype: 'multipart/form-data',
-        cache: false,
-		contentType: false,
-        success: function ( data ) {
-            alert( data );
+function uploadImage() 
+{
+    $.blockUI();
+    let image = new FormData();
+    image.append("image_file", $("#file")[0].files[0])
+    image.append("data", "your value");
+
+    /**
+     * Same as ^
+     * let image = {
+     *  image_file =  $("#file")[0].files[0]
+     * }
+     */
+
+     $.ajax({
+        "url" : IMAGE_UPLOADER_API ,
+        "type" : "POST",
+        "data" : image,
+        "enctype" : "multipart/form-data",
+        "cache" : false,
+        "contentType" : false,
+        "processData" : false,
+        "success" : function(response) {
+            $.unblockUI();
+            alert(response)
+            // let responseJSON = JSON.parse(response)
+
+            // alert(responseJSON.description);
+            
+            // return false;
         }
-    });
+    })
 }

@@ -1,18 +1,22 @@
 <?php
-include "users.php";
 
-if (isset($_GET['getLoggedInUser'])) {
+include_once("users.php");
+include_once("constants.php");
+
+if (isset($_GET['getAuthUser'])) {
+    $loggedInUser = @$_SESSION["loggedin-user"];
+
     $response = array(
-        "code" => 422,
+        "code" => INPUT_ERROR,
         "description" => "Logged In User Not Found",
-        "loggedin_user" => null
+        "details" => null
     );
 
-    foreach ($users as $user ) {
-        if ($user["username"] === @$_SESSION["logged-user"]) {
-            $response["code"] = 200;
-            $response["description"] = "Successfully Found";
-            $response["loggedin_user"] = $user;
+    foreach($users as $user) {
+        if ($user["username"] === $loggedInUser) {
+            $response["code"] = SUCCESS;
+            $response["description"] = "Succesfull";
+            $response["details"] = $user;
         }
     }
 

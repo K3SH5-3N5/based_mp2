@@ -1,3 +1,4 @@
+
 const LOGIN_API = "../../api/login.php";
 
 function login() {
@@ -9,15 +10,12 @@ function login() {
     $.ajax({
         "url" : LOGIN_API + "?auth=" + JSON.stringify(loginCredentials),
         "success" : function(response) {
-            let responseJSON = JSON.parse(response);
+            let responseJSON = JSON.parse(response)
 
-            alert(responseJSON.description)
+            alert(responseJSON.description);
 
-            /**
-             * Pag successfull
-             */
             if (responseJSON.code == 200) {
-                window.location.href = "../dashboard"
+                window.location.href = "../dashboard";
             }
         }
     })
