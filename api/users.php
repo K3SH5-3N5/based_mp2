@@ -109,7 +109,7 @@ if (isset($_POST['destroy']))
     $id = $_POST['id'];
 
     $sqlCommand = "
-    DELETE FROM " .TABLE_NAME. "
+    DELETE FROM " . TABLE_NAME. "
     WHERE id = $id
     ";
 
