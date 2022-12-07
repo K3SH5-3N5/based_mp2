@@ -1,6 +1,13 @@
 //@TODO
 
-DONT FORGET THE IMPORTS
+1. DONT FORGET THE IMPORTS
+2. Create database tables
+3. Create the page, script, style
+4. Copy script boilers
+5. Change all @TODO and @var
+6. Create api
+7. Change all @TODO and @var on your api
+8. Test the code
 
  <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
@@ -43,6 +50,6 @@ DONT FORGET THE IMPORTS
   "></script>
   <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js
   "></script>
-<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>1.
   <script src="script.js"></script>
  
