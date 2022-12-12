@@ -1,21 +1,16 @@
 <?php
-
-/**
- * This is to load environment
- */
 include_once ("config.php");
 include_once ("constants.php");
 
-//@TODO Change table name 
-define("TABLE_NAME", "users");
 
 /**
- * This code is for selecting all informations 
+ * Actual restful functions
  */
-if (isset($_GET['index']))
-{
-    //@TODO conditions to display all
-    $sqlCommand = "SELECT * FROM " . TABLE_NAME;
+
+ //GET All information
+ if (isset($_GET['index']))
+ {
+    $sqlCommand = "SELECT * FROM `employees`;";
 
     $results = $connection->query($sqlCommand);
 
@@ -32,17 +27,14 @@ if (isset($_GET['index']))
     $response["records"] = $records;
     
     echo json_encode($response);
-}
+ }
 
-/**
- * This code is for selecting one information only
- */
-if (isset($_GET['show']))
-{
-   $id = $_GET['id'];
-   
-   //@TODO conditions to display a specific
-   $sqlCommand = "SELECT * FROM " . TABLE_NAME . " WHERE id = $id";
+ //Get only 1 information
+ if (isset($_GET['show']))
+ {
+    $id = $_GET['id'];
+    
+    $sqlCommand = "SELECT * FROM `employees` where ID = $id;";
 
     $results = $connection->query($sqlCommand);
 
@@ -59,29 +51,29 @@ if (isset($_GET['show']))
     $response["records"] = $records;
     
     echo json_encode($response);
-}
+ }
 
-/**
- * This code is for creating new resource
- */
+ //Saving records
 if (isset($_POST['store']))
 {
-
     $data = json_decode($_POST['store']);
 
-    //@TODO conditions before saving
-    //@TODO change columns and values
     $sqlCommand = "
-    INSERT INTO " .TABLE_NAME. "
+    INSERT INTO `employees`
         (
-            `username`, 
-            `password`
+            `first_name`, 
+            `last_name`, 
+            `department_id`, 
+            `salary`, 
+            `middle_name`
         ) 
     VALUES 
         (
-            '{$data->username}',
-            '{$data->password}'
-        )
+            '{$data->first_name}',
+            '{$data->last_name}',
+            '{$data->department}',
+            '{$data->salary}',
+            '{$data->middle_name}')
     ";
 
     $isInserted = $connection->query($sqlCommand);
@@ -95,21 +87,19 @@ if (isset($_POST['store']))
     } else 
     {
         $response["code"] = SERVER_ERROR; 
-        $response["description"] = "Error while saving";
+        $response["description"] = "Successfully Saved New Employee";
     }
 
     echo json_encode($response);
 }
 
-/**
- *  For Deleteing
- */
+//For deleting
 if (isset($_POST['destroy']))
 {
     $id = $_POST['id'];
 
     $sqlCommand = "
-    DELETE FROM " . TABLE_NAME. "
+    DELETE FROM employees
     WHERE id = $id
     ";
 
@@ -131,23 +121,17 @@ if (isset($_POST['destroy']))
 
 }
 
-
-/**
- * For Update
- */
-
- if (isset($_POST['update']))
- {
+if (isset($_POST['update']))
+{
     $id = $_POST['id'];
     $data = json_decode($_POST['update']);
 
-    //@TODO Add condition before updating
-    //@TODO Change all columns and values before updatnig
     $sqlCommand = "
-    UPDATE " .TABLE_NAME. "
-    SET `password`='{$data->password}',
-    username = '{$data->username}'
-    WHERE id = $id
+    UPDATE `employees`
+    SET `first_name`='{$data->first_name}',
+    `department_id`='{$data->department}',
+    `salary`='{$data->salary}'
+    WHERE id = {$data->id}
     ";
 
     $isInserted = $connection->query($sqlCommand);
@@ -165,5 +149,12 @@ if (isset($_POST['destroy']))
     }
 
     echo json_encode($response);
- }
+}
+ /**
+  * End actual
+  */
+
+
+
+
 

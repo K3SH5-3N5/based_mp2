@@ -7,7 +7,7 @@ include_once ("config.php");
 include_once ("constants.php");
 
 //@TODO Change table name 
-define("TABLE_NAME", "users");
+define("TABLE_NAME", "items");
 
 /**
  * This code is for selecting all informations 
@@ -74,13 +74,13 @@ if (isset($_POST['store']))
     $sqlCommand = "
     INSERT INTO " .TABLE_NAME. "
         (
-            `username`, 
-            `password`
+            `item_description`, 
+            `price`
         ) 
     VALUES 
         (
-            '{$data->username}',
-            '{$data->password}'
+            '{$data->item_description}',
+            '{$data->price}'
         )
     ";
 
@@ -109,7 +109,7 @@ if (isset($_POST['destroy']))
     $id = $_POST['id'];
 
     $sqlCommand = "
-    DELETE FROM " . TABLE_NAME. "
+    DELETE FROM " .TABLE_NAME. "
     WHERE id = $id
     ";
 
@@ -145,8 +145,8 @@ if (isset($_POST['destroy']))
     //@TODO Change all columns and values before updatnig
     $sqlCommand = "
     UPDATE " .TABLE_NAME. "
-    SET `password`='{$data->password}',
-    username = '{$data->username}'
+    SET `item_description`='{$data->item_description}',
+    price = '{$data->price}'
     WHERE id = $id
     ";
 

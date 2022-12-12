@@ -1,12 +1,11 @@
 <?php
 
-include_once("users.php");
+include_once("users-bak.php");
 include_once("constants.php");
 
 /**
  * Check if may auth sa login.js login url na ajax
  */
-
 if (isset($_GET['auth'])) {
     $loginCredentials = json_decode($_GET["auth"]);
 
