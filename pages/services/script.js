@@ -1,7 +1,7 @@
 
 //@TODO Change api variable api path
 //@var change variable name value
-const SERVICES_API =  "../../api-dbh/services.php";
+const SERVICES_API =  "../../api-oop/routes/services.php";
 
 /** Actual Functions */
 
@@ -33,11 +33,11 @@ function index()
                     return_data.push({
                         //@TODO
                         //@var change keys depending on the table
-                        id : response.records[i].id,
-                        name :  response.records[i].name,
-                        price :  response.records[i].price,
-                        date_time : response.records[i].date_time,
-                        action : "<button onclick='destroy(" +response.records[i].id+ ")'>DELETE</button>"
+                        id : response.records[i].data.id,
+                        name :  response.records[i].data.name,
+                        price :  response.records[i].data.price,
+                        date_time : response.records[i].data.date_time,
+                        action : "<button onclick='destroy(" +response.records[i].data.id+ ")'>DELETE</button>"
                     });
                 }
 
