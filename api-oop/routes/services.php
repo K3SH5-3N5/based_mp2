@@ -13,7 +13,9 @@ $serviceController = new ServiceController($serviceModel);
  */
 if (isset($_GET['index']))
 {
-    $data['records'] = $serviceController->index();
+    $data = array();
+    $values = $serviceController->index();
+    $data['records'] = $values ? $values : [];
     echo parseResponse(SUCCESS, "Successful", null, $data);
 }
 
