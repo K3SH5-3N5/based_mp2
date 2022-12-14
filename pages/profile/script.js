@@ -1,4 +1,23 @@
 const IMAGE_UPLOADER_API = "../../api/uploader.php";
+const USERS_API =  "../../api/users.php";
+
+getProfilePic()
+
+function getProfilePic()
+{
+    $.ajax({
+        "url" : USERS_API,
+        "type" : "GET",
+        "data" : "getProfilePic",
+        "success" : function(response) {
+            let responseJSON = JSON.parse(response)
+
+            $("#profile_pic").attr("src", "../../api/" + responseJSON.records[0].profile_pic);
+
+            return false;
+        }
+    })
+}
 
 function uploadImage() 
 {
@@ -24,12 +43,14 @@ function uploadImage()
         "processData" : false,
         "success" : function(response) {
             $.unblockUI();
-            alert(response)
-            // let responseJSON = JSON.parse(response)
 
-            // alert(responseJSON.description);
+            let responseJSON = JSON.parse(response)
+
+            alert(responseJSON.description);
+
+            getProfilePic();
             
-            // return false;
+            return false;
         }
     })
 }
