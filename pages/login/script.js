@@ -1,5 +1,7 @@
 
-const LOGIN_API = "../../api/login.php";
+//const LOGIN_API = "../../api/login.php";
+//const LOGIN_API = "../../api-dbh/login.php";
+const LOGIN_API = "../../api-oop/routes/login.php";
 
 function login() {
     let loginCredentials = {
@@ -8,7 +10,9 @@ function login() {
     }
 
     $.ajax({
-        "url" : LOGIN_API + "?auth=" + JSON.stringify(loginCredentials),
+        "url" : LOGIN_API,
+        "type" : "POST",
+        "data" : "auth=" + JSON.stringify(loginCredentials),
         "success" : function(response) {
             let responseJSON = JSON.parse(response)
 
@@ -17,6 +21,10 @@ function login() {
             if (responseJSON.code == 200) {
                 window.location.href = "../dashboard";
             }
+
+            return false;
         }
     })
+
+    return false;
 }

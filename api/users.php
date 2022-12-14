@@ -66,8 +66,20 @@ if (isset($_GET['show']))
  */
 if (isset($_POST['store']))
 {
+    $response = array();
 
     $data = json_decode($_POST['store']);
+
+    if ($data->password !== $data->confirm_password)
+    {
+        $response["code"] = INPUT_ERROR;
+        $response["description"] = "Password doesn't match";
+
+        echo json_encode($response);
+        return;
+    }
+
+    $password = password_hash($data->password, PASSWORD_DEFAULT);
 
     //@TODO conditions before saving
     //@TODO change columns and values
@@ -80,13 +92,11 @@ if (isset($_POST['store']))
     VALUES 
         (
             '{$data->username}',
-            '{$data->password}'
+            '{$password}'
         )
     ";
 
     $isInserted = $connection->query($sqlCommand);
-
-    $response = array();
 
     if ($isInserted)
     {

@@ -1,6 +1,7 @@
 <?php
 
 include_once ("env.php");
+session_start();
 
 /**
  * Connection string
