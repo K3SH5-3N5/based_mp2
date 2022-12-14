@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2022 at 01:46 PM
+-- Generation Time: Dec 14, 2022 at 01:23 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -177,6 +177,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` text NOT NULL,
+  `profile_pic` text NOT NULL,
   `date_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -184,10 +185,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `date_time`) VALUES
-(3, 'geqehicasu', 'Pa$$w0rd!', '2022-12-05 12:33:00'),
-(4, 'cutuluwac', 'Pa$$w0rd!', '2022-12-05 12:29:10'),
-(5, 'kavyrohyc', 'Pa$$w0rd!', '2022-12-05 12:29:16');
+INSERT INTO `users` (`id`, `username`, `password`, `profile_pic`, `date_time`) VALUES
+(8, 'test', '$2y$10$0jayGbbAQpa9eGaQXB8mbefFV3uJkFguXboTw7scNzDGAyu1c/AXu', 'uploads/doctor-strange-in-the-multiverse-of-madness-4k-2020-pw.jpg', '2022-12-14 11:56:06'),
+(9, 'test123', '$2y$10$7LrOQS/Vt3RfSNbhDEhB0ubB4tXYwQfwClmFoDBl/xptCR6b1Ip/u', '', '2022-12-14 11:11:39');
 
 --
 -- Indexes for dumped tables
@@ -281,7 +281,7 @@ ALTER TABLE `services`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
