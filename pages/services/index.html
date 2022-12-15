@@ -19,8 +19,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css" />
-    
-</head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.5.0/css/select.dataTables.min.css" />
+ </head>
 
   <body>
     <!--Navigation section-->
@@ -79,6 +79,7 @@
             <button id="modalClickerShow" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">
                 Add New
             </button>
+            <button class="btn btn-danger" onclick="getSelected()" style="float:right">DELETE SELECTED</button>
             <!--TODO-->
             <!-- <form onsubmit="return store()">
               Name: <input type="text" id="name" required /> <br />
@@ -91,6 +92,7 @@
             <thead>
                 <tr>
                     <!--TODO-->
+                    <th></th>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Price</th>
@@ -167,6 +169,7 @@
   <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.js"></script>
+  <script src="https://cdn.datatables.net/select/1.5.0/js/dataTables.select.min.js"></script>
   <script src="script.js"></script>
   <script src="../../js/logout.js"></script>
 </html>
