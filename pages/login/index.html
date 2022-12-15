@@ -11,18 +11,20 @@
     <div>
         <div class="card" style="width: 30%; margin-top: 10%; margin-left: 35%;">
             <div class="card-body">
-                <h5 class="card-title">Login to My System</h5>
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="username" placeholder="Username">
-                    <label for="username">Username</label>
-                </div>
-                <div class="form-floating">
-                    <input type="password" class="form-control" id="password" placeholder="Password">
-                    <label for="password">Password</label>
-                </div>
-                <a href="">Forgot Password</a>
-                <br /> <br/ >
-                <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+                <form onsubmit="return login()">
+                    <h5 class="card-title">Login to My System</h5>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="username" placeholder="Username">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <label for="password">Password</label>
+                    </div>
+                    <a href="">Forgot Password</a>
+                    <br /> <br/ >
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
             </div>
         </div>
     </div>

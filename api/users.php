@@ -66,8 +66,20 @@ if (isset($_GET['show']))
  */
 if (isset($_POST['store']))
 {
+    $response = array();
 
     $data = json_decode($_POST['store']);
+
+    if ($data->password !== $data->confirm_password)
+    {
+        $response["code"] = INPUT_ERROR;
+        $response["description"] = "Password doesn't match";
+
+        echo json_encode($response);
+        return;
+    }
+
+    $password = password_hash($data->password, PASSWORD_DEFAULT);
 
     //@TODO conditions before saving
     //@TODO change columns and values
@@ -80,13 +92,11 @@ if (isset($_POST['store']))
     VALUES 
         (
             '{$data->username}',
-            '{$data->password}'
+            '{$password}'
         )
     ";
 
     $isInserted = $connection->query($sqlCommand);
-
-    $response = array();
 
     if ($isInserted)
     {
@@ -163,6 +173,31 @@ if (isset($_POST['destroy']))
         $response["code"] = SERVER_ERROR; 
         $response["description"] = "Error while updating employee";
     }
+
+    echo json_encode($response);
+ }
+
+
+
+ if (isset($_GET['getProfilePic']))
+ {
+    $username = $_SESSION['loggedin-user'];
+
+    $sqlCommand = "SELECT * FROM " . TABLE_NAME . " WHERE username = '$username'";
+
+    $results = $connection->query($sqlCommand);
+
+    $response = array();
+
+    $records = array();
+
+    while ($row = $results->fetch_assoc()) {
+        array_push($records, $row);
+    }
+
+    $response["code"] = SUCCESS;
+    $response["total_rows"] = $results->num_rows;
+    $response["records"] = $records;
 
     echo json_encode($response);
  }
