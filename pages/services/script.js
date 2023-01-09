@@ -1,7 +1,8 @@
 
 //@TODO Change api variable api path
 //@var change variable name value
-const SERVICES_API =  "../../api-oop/routes/services.php";
+//const SERVICES_API =  "../../api-oop/routes/services.php";
+const SERVICES_API =  "../../api-dbh/services.php";
 
 /** Actual Functions */
 
@@ -27,17 +28,18 @@ function index()
             url : SERVICES_API + "?index",
             dataSrc : function (response) {
                 let return_data = new Array();
-
+                console.log(response);
                 for (let i = 0; i<response.records.length; i++) 
                 {
                     return_data.push({
                         //@TODO
                         //@var change keys depending on the table
-                        id : response.records[i].data.id,
-                        name :  response.records[i].data.name,
-                        price :  response.records[i].data.price,
-                        date_time : response.records[i].data.date_time,
-                        action : "<button onclick='destroy(" +response.records[i].data.id+ ")'>DELETE</button>"
+                        select : "<input type='checkbox' value='" + response.records[i].id + "' class='selected_service' />",
+                        id : response.records[i].id,
+                        name :  response.records[i].name,
+                        price :  response.records[i].price,
+                        date_time : response.records[i].date_time,
+                        action : "<button onclick='destroy(" +response.records[i].id+ ")'>DELETE</button>"
                     });
                 }
 
@@ -68,6 +70,7 @@ function index()
         columns : [
             //@TODO
             //@var change data keys depending on the table column declared above
+            { data : 'select' },
             { data : 'id' },
             { data : 'name' },
             { data : 'price' },
@@ -232,4 +235,38 @@ function doUpdate()
     update(id)
 
     $("#modalClickerClose").click();
+}
+
+function getSelected()
+{
+    let selectedValues = [];
+
+    $(".selected_service:checked").each(function() {
+        selectedValues.push($(this).val());
+    })
+
+    
+    $.blockUI();
+
+    if (!confirm("Are you sure you want to delete this records?"))
+    {
+        return;
+    }
+
+    $.ajax({
+        "url" : SERVICES_API ,
+        "type" : "POST",
+        "data" : "bulkDestroy&id=" + JSON.stringify(selectedValues),
+        "success" : function(response) {
+
+            let responseJSON = JSON.parse(response)
+            $.unblockUI()
+
+            alert(responseJSON.description);
+
+            serviceDataTable.ajax.reload(null, false);
+            
+            return false;
+        }
+    })
 }

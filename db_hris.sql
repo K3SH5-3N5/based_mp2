@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2022 at 01:23 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Jan 09, 2023 at 08:22 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_hris`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customertransaction`
+--
+
+CREATE TABLE `customertransaction` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `company_name` varchar(100) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `add_info` text NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `service_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `customertransaction`
+--
+
+INSERT INTO `customertransaction` (`id`, `first_name`, `last_name`, `company_name`, `address`, `email`, `phone`, `add_info`, `service_id`, `service_name`) VALUES
+(14, 'EUN', 'JIN', 'EUN-JIN', '#123 Palma St. SING', 'eun.jin2@gmail.com', '0917652222', 'Test Data 2', 42, 'Computer wipes and Operating System reinstallation'),
+(15, 'Harold', 'Sala', 'HS Merch and Jewelery', '#123 Bautista Street', 'hs.merchandjewelry@gmail.com', '639431234545', 'Test Data 2', 43, 'Install MsOffice / System Antivirus / Adobe Photos'),
+(16, 'Fred', 'Lopez', 'Fred Lopez Company Group', '#333 Ferdinand St, Forbes Park, MM ', 'fred_Lopez444@gmail.com', '09177533422', 'Test Data 4', 46, 'Data Recovery');
 
 -- --------------------------------------------------------
 
@@ -69,8 +97,7 @@ INSERT INTO `employees` (`id`, `first_name`, `last_name`, `department_id`, `sala
 (16, 'Vera', 'Moody', 3, '18.00', 'Marcia Wynn'),
 (17, 'Donna', 'Potts', 3, '52.00', 'Penelope Jacobs'),
 (19, 'Jaime', 'Watts', 4, '23.00', 'Danielle Justice'),
-(21, 'Alfonso', 'Browning', 4, '94.00', 'Alea Wise'),
-(22, 'Alfonso', 'Browning', 4, '94.00', 'Alea Wise');
+(21, 'Alfonso', 'Browning', 4, '94.00', 'Alea Wise');
 
 -- --------------------------------------------------------
 
@@ -95,7 +122,10 @@ INSERT INTO `items` (`id`, `name`, `description`, `uom`, `price`, `date_time`) V
 (2, 'Lani Garza', 'Lani Garza Updated', 'PC', '250.00', '2022-12-06 12:20:11'),
 (3, 'Melanie Cabrera', 'Iusto fuga Quia eiu', 'Adipisci e', '432.00', '2022-12-06 12:20:25'),
 (4, 'Levi Monroe', 'Levi Monroe Updated', 'KG', '100.00', '2022-12-06 12:19:08'),
-(6, 'Paki Duffy', 'Consequat In fugiat', 'Vero qui i', '33.00', '2022-12-06 12:20:34');
+(6, 'Paki Duffy', 'Consequat In fugiat', 'Vero qui i', '33.00', '2022-12-06 12:20:34'),
+(7, 'Roblox', 'Roblox Desc', 'lbs', '44.00', '2023-01-06 13:00:51'),
+(8, 'DBest ', 'DBest#1', 'lbs', '10000000.00', '2023-01-09 04:23:49'),
+(9, 'DBest ', 'DBest#1', 'lbs', '10000000.00', '2023-01-09 04:25:39');
 
 -- --------------------------------------------------------
 
@@ -157,15 +187,11 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `name`, `price`, `date_time`) VALUES
-(20, 'test updated', '55.00', '2022-12-13 12:20:24'),
-(23, 'Amery Ellis', '982.00', '2022-12-07 12:20:09'),
-(26, 'test0', '3.00', '2022-12-07 12:21:55'),
-(27, 'Lars Murray', '659.00', '2022-12-07 12:25:41'),
-(28, 'Lars Murray2', '659.00', '2022-12-07 12:25:49'),
-(37, 'test', '200.00', '2022-12-13 12:14:53'),
-(39, 'test2', '200.00', '2022-12-13 12:15:24'),
-(40, 'test3', '200.00', '2022-12-13 12:15:42'),
-(41, 'Melvin Newton', '147.00', '2022-12-13 12:20:42');
+(42, 'Computer wipes and Operating System reinstallations', '1500.00', '2023-01-09 02:06:02'),
+(43, 'Install MsOffice / System Antivirus / Adobe Photoshop etc.', '750.00', '2023-01-09 02:07:51'),
+(44, 'Network Connection', '1600.00', '2023-01-09 02:08:03'),
+(45, 'Hardware or software error diagnostics', '1100.00', '2023-01-09 02:08:16'),
+(46, 'Data Recovery', '800.00', '2023-01-09 02:08:33');
 
 -- --------------------------------------------------------
 
@@ -186,12 +212,21 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `profile_pic`, `date_time`) VALUES
-(8, 'test', '$2y$10$0jayGbbAQpa9eGaQXB8mbefFV3uJkFguXboTw7scNzDGAyu1c/AXu', 'uploads/doctor-strange-in-the-multiverse-of-madness-4k-2020-pw.jpg', '2022-12-14 11:56:06'),
-(9, 'test123', '$2y$10$7LrOQS/Vt3RfSNbhDEhB0ubB4tXYwQfwClmFoDBl/xptCR6b1Ip/u', '', '2022-12-14 11:11:39');
+(8, 'test', '$2y$10$0jayGbbAQpa9eGaQXB8mbefFV3uJkFguXboTw7scNzDGAyu1c/AXu', 'uploads/pexels-photo-2116475.jpeg', '2023-01-09 07:20:40'),
+(9, 'test123', '$2y$10$7LrOQS/Vt3RfSNbhDEhB0ubB4tXYwQfwClmFoDBl/xptCR6b1Ip/u', '', '2022-12-14 11:11:39'),
+(11, 'test2', '$2y$10$m26U2iW0mPxQVPMm1cLFtOkjGr6bbY2eKhOrm32Nb3W2i49F/WqVu', '', '2023-01-07 03:41:31');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `customertransaction`
+--
+ALTER TABLE `customertransaction`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_name` (`company_name`),
+  ADD KEY `service_id` (`service_id`);
 
 --
 -- Indexes for table `departments`
@@ -242,6 +277,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `customertransaction`
+--
+ALTER TABLE `customertransaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
@@ -251,13 +292,13 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `productimage`
@@ -275,13 +316,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

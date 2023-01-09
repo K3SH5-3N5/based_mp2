@@ -88,3 +88,17 @@ if (isset($_POST['update']))
 
     echo $id ? parseResponse(SUCCESS, "Succesfully Updated", $id) : parseResponse(SERVER_ERROR, "Update failed");
 }
+
+
+if (isset($_POST['bulkDestroy']))
+{
+    $ids = json_decode($_POST['id']);
+
+    foreach ($ids as $id)
+    {
+        $database->where("id", $id);
+        $database->delete(TABLE_NAME);
+    }
+
+    echo parseResponse(SUCCESS, "Succesfully Deleted");
+}

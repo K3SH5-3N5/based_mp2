@@ -10,9 +10,9 @@ $users = array(
     ),
 
     array(
-        "firstname" => "Pedro",
-        "username" => "Pedro123",
-        "password" => "Password123",
+        "firstname" => "Bryan58",
+        "username" => "Bryan",
+        "password" => "Bryan",
         "position" => "Level 1"
     ),
 
